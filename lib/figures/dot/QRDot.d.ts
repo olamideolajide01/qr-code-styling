@@ -21,6 +21,7 @@ export default class QRDot {
     _drawSquare({ x, y, size }: DrawArgs): void;
     _drawRounded({ x, y, size, getNeighbor }: DrawArgs): void;
     _drawExtraRounded({ x, y, size, getNeighbor }: DrawArgs): void;
+    _drawVertical({ x, y, size }: DrawArgs): void;
     _drawClassy({ x, y, size, getNeighbor }: DrawArgs): void;
     _drawStar({ x, y, size }: DrawArgs): void;
     _drawDiamond({ x, y, size }: DrawArgs): void;

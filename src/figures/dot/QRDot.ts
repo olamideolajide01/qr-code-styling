@@ -39,6 +39,9 @@ export default class QRDot {
       case dotTypes.diamond:
         drawFunction = this._drawDiamond;
         break;
+      case dotTypes.vertical:
+        drawFunction = this._drawVertical;
+        break;
       case dotTypes.square:
       default:
         drawFunction = this._drawSquare;
@@ -267,6 +270,22 @@ export default class QRDot {
       this._basicSideRounded({ x, y, size, rotation });
       return;
     }
+  }
+
+  _drawVertical({ x, y, size }: DrawArgs): void {
+    this._rotateFigure({
+      x,
+      y,
+      size,
+      rotation: 0,
+      draw: () => {
+        this._element = this._window.document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        this._element.setAttribute("x", String(x + size / 4)); // Center within the cell
+        this._element.setAttribute("y", String(y)); // Top of the cell
+        this._element.setAttribute("width", String(size / 2)); // Narrower width
+        this._element.setAttribute("height", String(size)); // Full height
+      }
+    });
   }
 
   _drawClassy({ x, y, size, getNeighbor }: DrawArgs): void {

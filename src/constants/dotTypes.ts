@@ -8,5 +8,6 @@ export default {
   square: "square",
   extraRounded: "extra-rounded",
   star: "star",
-  diamond: "diamond"
+  diamond: "diamond",
+  vertical: "vertical"
 } as DotTypes;

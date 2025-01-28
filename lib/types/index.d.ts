@@ -3,7 +3,7 @@ import nodeCanvas from "canvas";
 export interface UnknownObject {
     [key: string]: any;
 }
-export type DotType = "dots" | "rounded" | "classy" | "classy-rounded" | "square" | "extra-rounded" | "star" | "diamond";
+export type DotType = "dots" | "rounded" | "classy" | "classy-rounded" | "square" | "extra-rounded" | "star" | "diamond" | "vertical";
 export type CornerDotType = "dot" | "square" | DotType;
 export type CornerSquareType = "dot" | "square" | "extra-rounded" | DotType;
 export type FileExtension = "svg" | "png" | "jpeg" | "webp";
