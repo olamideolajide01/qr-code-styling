@@ -33,12 +33,12 @@ export default class QRDot {
       case dotTypes.extraRounded:
         drawFunction = this._drawExtraRounded;
         break;
-         case dotTypes.star:
-    drawFunction = this._drawStar;
-    break;
-  case dotTypes.diamond:
-    drawFunction = this._drawDiamond;
-    break;
+      case dotTypes.star:
+        drawFunction = this._drawStar;
+        break;
+      case dotTypes.diamond:
+        drawFunction = this._drawDiamond;
+        break;
       case dotTypes.square:
       default:
         drawFunction = this._drawSquare;
@@ -296,43 +296,42 @@ export default class QRDot {
   }
 
   _drawStar({ x, y, size }: DrawArgs): void {
-  const cx = x + size / 2; // Center x-coordinate
-  const cy = y + size / 2; // Center y-coordinate
-  const spikes = 5; // Number of star points
-  const outerRadius = size / 2; // Outer radius
-  const innerRadius = size / 4; // Inner radius
+    const cx = x + size / 2; // Center x-coordinate
+    const cy = y + size / 2; // Center y-coordinate
+    const spikes = 5; // Number of star points
+    const outerRadius = size / 2; // Outer radius
+    const innerRadius = size / 4; // Inner radius
 
-  let pathData = '';
-  const angle = Math.PI / spikes;
+    let pathData = "";
+    const angle = Math.PI / spikes;
 
-  for (let i = 0; i < 2 * spikes; i++) {
-    const radius = i % 2 === 0 ? outerRadius : innerRadius;
-    const xPoint = cx + radius * Math.sin(i * angle);
-    const yPoint = cy - radius * Math.cos(i * angle);
-    pathData += `${i === 0 ? 'M' : 'L'} ${xPoint},${yPoint} `;
+    for (let i = 0; i < 2 * spikes; i++) {
+      const radius = i % 2 === 0 ? outerRadius : innerRadius;
+      const xPoint = cx + radius * Math.sin(i * angle);
+      const yPoint = cy - radius * Math.cos(i * angle);
+      pathData += `${i === 0 ? "M" : "L"} ${xPoint},${yPoint} `;
+    }
+    pathData += "Z"; // Close the path
+
+    this._element = this._window.document.createElementNS("http://www.w3.org/2000/svg", "path");
+    this._element.setAttribute("d", pathData);
   }
-  pathData += 'Z'; // Close the path
-
-  this._element = this._window.document.createElementNS('http://www.w3.org/2000/svg', 'path');
-  this._element.setAttribute('d', pathData);
-}
 
   _drawDiamond({ x, y, size }: DrawArgs): void {
-  const cx = x + size / 2; // Center x-coordinate
-  const cy = y + size / 2; // Center y-coordinate
-  const halfSize = size / 2;
+    const cx = x + size / 2; // Center x-coordinate
+    const cy = y + size / 2; // Center y-coordinate
+    const halfSize = size / 2;
 
-  const points = [
-    `${cx},${cy - halfSize}`, // Top point
-    `${cx + halfSize},${cy}`, // Right point
-    `${cx},${cy + halfSize}`, // Bottom point
-    `${cx - halfSize},${cy}`, // Left point
-  ].join(' ');
+    const points = [
+      `${cx},${cy - halfSize}`, // Top point
+      `${cx + halfSize},${cy}`, // Right point
+      `${cx},${cy + halfSize}`, // Bottom point
+      `${cx - halfSize},${cy}` // Left point
+    ].join(" ");
 
-  this._element = this._window.document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-  this._element.setAttribute('points', points);
-}
-
+    this._element = this._window.document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+    this._element.setAttribute("points", points);
+  }
 
   _drawClassyRounded({ x, y, size, getNeighbor }: DrawArgs): void {
     const leftNeighbor = getNeighbor ? +getNeighbor(-1, 0) : 0;
