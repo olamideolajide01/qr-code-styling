@@ -39,8 +39,11 @@ export default class QRDot {
       case dotTypes.diamond:
         drawFunction = this._drawDiamond;
         break;
-      case dotTypes.vertical:
-        drawFunction = this._drawVertical;
+      case dotTypes.triangle: // New triangle case
+        drawFunction = this._drawTriangle;
+        break;
+      case dotTypes.love: // New heart case
+        drawFunction = this._drawLove;
         break;
       case dotTypes.square:
       default:
@@ -272,18 +275,38 @@ export default class QRDot {
     }
   }
 
-  _drawVertical({ x, y, size }: DrawArgs): void {
+  _drawTriangle({ x, y, size }: DrawArgs): void {
     this._rotateFigure({
       x,
       y,
       size,
       rotation: 0,
       draw: () => {
-        this._element = this._window.document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        this._element.setAttribute("x", String(x + size / 4)); // Center within the cell
-        this._element.setAttribute("y", String(y)); // Top of the cell
-        this._element.setAttribute("width", String(size / 2)); // Narrower width
-        this._element.setAttribute("height", String(size)); // Full height
+        this._element = this._window.document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+        const points = [
+          `${x + size / 2},${y}`, // Top
+          `${x},${y + size}`, // Bottom-left
+          `${x + size},${y + size}` // Bottom-right
+        ].join(" ");
+        this._element.setAttribute("points", points);
+      }
+    });
+  }
+
+  _drawLove({ x, y, size }: DrawArgs): void {
+    this._rotateFigure({
+      x,
+      y,
+      size,
+      rotation: 0,
+      draw: () => {
+        this._element = this._window.document.createElementNS("http://www.w3.org/2000/svg", "path");
+        const d = `
+        M ${x + size / 2},${y + size / 4} 
+        C ${x + size / 4},${y} ${x},${y + size / 2} ${x + size / 2},${y + size} 
+        C ${x + size},${y + size / 2} ${x + (3 * size) / 4},${y} ${x + size / 2},${y + size / 4}
+      `;
+        this._element.setAttribute("d", d);
       }
     });
   }

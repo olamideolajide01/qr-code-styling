@@ -15,7 +15,8 @@ export type DotType =
   | "extra-rounded"
   | "star"
   | "diamond"
-  | "vertical";
+  | "triangle"
+  | "love";
 export type CornerDotType = "dot" | "square" | DotType;
 export type CornerSquareType = "dot" | "square" | "extra-rounded" | DotType;
 export type FileExtension = "svg" | "png" | "jpeg" | "webp";
