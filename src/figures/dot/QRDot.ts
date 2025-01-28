@@ -283,10 +283,11 @@ export default class QRDot {
       rotation: 0,
       draw: () => {
         this._element = this._window.document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+        const height = (Math.sqrt(3) / 2) * size; // Height of an equilateral triangle
         const points = [
-          `${x + size / 2},${y}`, // Top
-          `${x},${y + size}`, // Bottom-left
-          `${x + size},${y + size}` // Bottom-right
+          `${x + size / 2},${y}`, // Top point
+          `${x},${y + height}`, // Bottom-left point
+          `${x + size},${y + height}` // Bottom-right point
         ].join(" ");
         this._element.setAttribute("points", points);
       }
@@ -301,10 +302,16 @@ export default class QRDot {
       rotation: 0,
       draw: () => {
         this._element = this._window.document.createElementNS("http://www.w3.org/2000/svg", "path");
+        const cx = x + size / 2; // Center x-coordinate
+        const cy = y + size / 2; // Center y-coordinate
+        const width = size / 2; // Half the width of the heart
+        const height = size / 2; // Half the height of the heart
+
         const d = `
-        M ${x + size / 2},${y + size / 4} 
-        C ${x + size / 4},${y} ${x},${y + size / 2} ${x + size / 2},${y + size} 
-        C ${x + size},${y + size / 2} ${x + (3 * size) / 4},${y} ${x + size / 2},${y + size / 4}
+        M ${cx},${cy - height / 2} 
+        C ${cx - width / 2},${cy - height} ${cx - width},${cy} ${cx},${cy + height / 2} 
+        C ${cx + width},${cy} ${cx + width / 2},${cy - height} ${cx},${cy - height / 2}
+        Z
       `;
         this._element.setAttribute("d", d);
       }
