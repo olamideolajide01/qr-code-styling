@@ -33,6 +33,12 @@ export default class QRDot {
       case dotTypes.extraRounded:
         drawFunction = this._drawExtraRounded;
         break;
+         case dotTypes.star:
+    drawFunction = this._drawStar;
+    break;
+  case dotTypes.diamond:
+    drawFunction = this._drawDiamond;
+    break;
       case dotTypes.square:
       default:
         drawFunction = this._drawSquare;
